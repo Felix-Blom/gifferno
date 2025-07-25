@@ -3,5 +3,9 @@ name = "gifferno"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "gifferno"
+path = "src/main.rs"
+
 [dependencies]
 clap = { version = "4.5.41", features = ["derive"] }
