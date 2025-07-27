@@ -1,185 +1,188 @@
 # 🔥 gifferno
 
-**Blazingly fast GIFs in your terminal.** 🦀🔥
+**Blazingly fast GIFs in your terminal with maximum pixel density.** 🦀🔥
 
-Transform any GIF into beautiful art that plays directly in your terminal. Built with Rust for maximum performance and terminal aesthetics.
+Transform any GIF into stunning visual art that plays directly in your terminal. Built with Rust for maximum performance, featuring high-resolution Unicode rendering and customizable visual presets.
 
 ## ✨ Features
 
-- 🎨 **Customizable characters** - Use any character to render your GIFs
-- 💾 **Save & manage** - Store your favorite GIFs locally with custom names
-- 🔍 **Interactive picker** - Browse and select 
-- 🚀 **Blazingly fast** - Written in Rust for optimal performance
+- 🎨 **High-Resolution Mode** - Double vertical resolution using Unicode half-blocks (default)
+- 🌈 **Visual Presets** - 6 different contrast and brightness styles (`bright`, `dark`, `super-bright`, `retro`, `soft`, `balanced`)
+- � **Maximum Pixel Density** - Full terminal utilization with left-aligned rendering
+- 🎯 **Enhanced Contrast** - S-curve processing with dynamic highlights and shadows
+- ⚡ **Blazingly Fast** - Async animation with optimized frame processing
 - 📱 **Cross-platform** - Works on macOS, Linux, and Windows
+- 🔧 **Customizable Characters** - Use any character for rendering (when not using Unicode blocks)
 
 ## 🚀 Installation
 
 ### From Source (Recommended)
 
-In alpha still, releases with easier build strategies will come.
 ```bash
-git clone https://github.com/username/gifferno.git
+git clone https://github.com/Felix-Blom/gifferno.git
 cd gifferno
 cargo build --release
-cargo install --path .
 ```
 
 ### Using Cargo
 
 ```bash
-cargo install gifferno
+cargo install --git https://github.com/Felix-Blom/gifferno.git
 ```
 
 ## 📖 Usage
 
-
-## 🛠️ Commands Reference
-
-| Command | Description | Arguments |
-|---------|-------------|-----------|
-| `run` | Play a GIF directly from file path | `--file-path`, `--print-character` |
-| `save` | Save a GIF to local database | `--file-path`, `--name` |
-| `get` | Retrieve and play a saved GIF | `--name`, `--print-character` |
-| `pick` | Interactive GIF selector | None |
-| `delete` | Remove a saved GIF | `--name` |
-| `clear` | Clear entire GIF database | None |
-
-### Argument Details
-
-- `--file-path` / `-f`: Path to the GIF file
-- `--name` / `-n`: Custom name for saving/retrieving GIFs
-- `--print-character` / `-p`: Character used for rendering (default: `#`)
-
-### Running
+### Basic Usage
 
 ```bash
-# Run a GIF directly from file
-gifferno run --file-path ./my-gif.gif
+# Play a GIF with high-resolution mode (default)
+cargo run -- examples/blink.gif
 
-# Use custom characters for rendering
-gifferno run --file-path ./nyan-cat.gif --print-character "?"
+# Loop the GIF continuously
+cargo run -- examples/leo.gif --loop-gif
+
+# Use standard resolution mode
+cargo run -- examples/homer.gif --standard-res
 ```
 
-### Managing Your GIF Collection
+### Visual Presets
+
+Experiment with different visual styles:
 
 ```bash
-# Save a GIF with a memorable name
-gifferno save --file-path ./epic-fail.gif --name "fail"
+# Maximum brightness and contrast
+cargo run -- examples/surprise.gif --preset super-bright
 
-# Retrieve and play a saved GIF
-gifferno get --name "fail"
+# High contrast with boosted highlights  
+cargo run -- examples/MJ.gif --preset bright --loop-gif
 
-# Play with custom characters
-gifferno get --name "fail" --print-character ""
+# Retro terminal aesthetic with sharp transitions
+cargo run -- examples/mic_drop.gif --preset retro
 
-# Browse your collection interactively
-gifferno pick
+# Soft and gentle contrast
+cargo run -- examples/winning.gif --preset soft
 
-# Remove a specific GIF
-gifferno delete --name "fail"
+# Dark and moody tones
+cargo run -- examples/nothing.gif --preset dark
 
-# Clear your entire collection (be careful!)
-gifferno clear
+# Balanced contrast (default)
+cargo run -- examples/blink.gif --preset balanced
 ```
 
-### Example Commands
+### Custom Characters
 
 ```bash
-# Basic usage
-gifferno run -f ./dance.gif
+# Use custom character instead of Unicode blocks
+cargo run -- examples/leo.gif --character "@" --standard-res
 
-# Custom character rendering
-gifferno run -f ./fire.gif -p "^"
-
-# Save for later
-gifferno save -f ./cat.gif -n "grumpy-cat"
-
-# Quick access to saved GIFs
-gifferno get -n "grumpy-cat" -p "~"
-
-# Interactive mode
-gifferno pick
+# Different characters create different aesthetics
+cargo run -- examples/homer.gif --character "█" --preset bright
 ```
 
+## 🎛️ Command Reference
 
+| Flag | Description | Default |
+|------|-------------|---------|
+| `<FILE_PATH>` | Path to the GIF file | Required |
+| `--preset <PRESET>` | Visual preset: `balanced`, `bright`, `dark`, `super-bright`, `retro`, `soft` | `balanced` |
+| `--character <CHAR>` | Character to use for rendering | `#` |
+| `--standard-res` | Use standard resolution instead of high-resolution mode | High-res default |
+| `--loop-gif` | Loop the GIF continuously | `true` |
 
+## 🎨 Visual Presets Explained
 
+- **`balanced`** - Standard S-curve contrast for general use
+- **`bright`** - High contrast with boosted highlights (1.2x brightness boost)
+- **`dark`** - Muted tones with reduced highlights for dark themes
+- **`super-bright`** - Maximum contrast and brightness (1.4x boost!)
+- **`retro`** - Heavy contrast with sharp transitions for vintage terminal feel
+- **`soft`** - Gentle contrast with smooth gradients
+
+## 🔧 Technical Features
+
+- **Unicode Half-Blocks**: `▀▄█` characters provide 2x vertical resolution
+- **Enhanced Character Set**: ` ░▒▓▀▄█` for fine gradations
+- **S-Curve Processing**: Dynamic shadow and highlight enhancement
+- **Full Terminal Utilization**: 100% width, 90% height usage
+- **Async Animation**: Smooth playback with proper frame timing
+- **Left-Aligned Rendering**: Maximum pixel density, no centering padding
+
+## 🚀 Performance
+
+- **Blazingly Fast**: Optimized Rust implementation
+- **Memory Efficient**: Minimal allocations during playback
+- **Async Processing**: Non-blocking animation loop
+- **Smart Resizing**: Maintains aspect ratio while maximizing display area
+
+## 📱 Examples
+
+```bash
+# Show all available options
+cargo run -- --help
+
+# Quick test with example GIFs
+cargo run -- examples/blink.gif --preset super-bright --loop-gif
+
+# Compare presets
+cargo run -- examples/leo.gif --preset bright
+cargo run -- examples/leo.gif --preset retro
+cargo run -- examples/leo.gif --preset super-bright
+
+# Custom rendering
+cargo run -- examples/homer.gif --character "●" --standard-res --preset dark
+```
+
+## 🎬 Key Controls
+
+- **Press `q`, `ESC`, or `Ctrl+C`** to quit during playback
+- **Terminal resize** is automatically handled
+
+## 🛠️ Development
+
+### Building
+
+```bash
+cargo build --release
+```
+
+### Testing
+
+```bash
+cargo test
+```
+
+### Adding Example GIFs
+
+Place GIF files in the `examples/` directory for testing.
 
 ## 🐛 Issues & Bug Reports
 
-Found a bug? We'd love to hear about it! Please:
+Found a bug? Please create an issue with:
 
-1. Check existing issues first
-2. Provide detailed reproduction steps
-3. Include your system information
-4. Add relevant error messages or logs
+1. Your system information (OS, terminal)
+2. Command used and expected vs actual behavior
+3. GIF file details (if relevant)
 
-[Create an Issue](https://github.com/username/gifferno/issues/new)
-
+[Create an Issue](https://github.com/Felix-Blom/gifferno/issues/new)
 
 ## 🤝 Contributing
-### Getting Started
 
 1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
 3. **Make your changes**
 4. **Write tests** for your code
-5. **Ensure tests pass**
-   ```bash
-   cargo test
-   ```
-6. **Format your code**
-   ```bash
-   cargo fmt
-   ```
-7. **Run clippy**
-   ```bash
-   cargo clippy
-   ```
-8. **Commit your changes**
-- Use [gitmoji](https://gitmoji.dev/) or [howmoji](https://github.com/Felix-Blom/howmoji) conventional commit messages.
-   ```bash
-   # Choose one
-   gitmoji -c 
-   howmoji -c
-   ```
-9. **Push to your branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-10. **Open a Pull Request**
-   - Please make sure your pull request is rebased on the latest version of the application.
-
-### Development Workflow
-
-- Create issues for bugs and feature requests
-- Use [gitmoji](https://gitmoji.dev/) or [howmoji](https://github.com/Felix-Blom/howmoji) conventional commit messages.
-- Ensure all tests pass before submitting PR
-- Update documentation for new features
-- Follow Rust best practices and idioms
+5. **Ensure tests pass**: `cargo test`
+6. **Format your code**: `cargo fmt`
+7. **Run clippy**: `cargo clippy`
+8. **Commit with conventional messages**
+9. **Push and open a Pull Request**
 
 ### Code Standards
 
 - Run `cargo fmt` before committing
 - Ensure `cargo clippy` passes without warnings
 - Add tests for new functionality
-- Update README if adding new commands or features
-
-### 🧪 Testing
-
-```bash
-# Run all tests
-cargo test
-
-# Run tests with output
-cargo test -- --nocapture
-
-# Run specific test
-cargo test test_name
-```
+- Update README for new features
 
 ## 📄 License
 
@@ -188,9 +191,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Built with [Rust](https://www.rust-lang.org/) 🦀
-- CLI powered by [clap](https://github.com/clap-rs/clap)
+- GIF decoding with [gif](https://crates.io/crates/gif)
+- Terminal control with [crossterm](https://crates.io/crates/crossterm)
+- CLI powered by [clap](https://crates.io/crates/clap)
+- Async runtime with [tokio](https://crates.io/crates/tokio)
 
 ---
-**Made with ❤️ and lots of 🔥 by the gifferno community**
 
-*Star ⭐ this repo if you find it useful!*
+**Made with ❤️ and maximum pixels by the gifferno community**
+
+*Star ⭐ this repo if you find it blazingly fast!*
